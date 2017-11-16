@@ -1,8 +1,17 @@
 package com.othiagoduarte.teste;
 
-public class Main {
+import java.io.IOException;
 
-	public static void main(String[] args) {
-		System.out.println("Ola mundo!");
+public class Main {
+	private static String HOST = "127.0.0.1";
+	private static Integer port = 12345;
+	
+
+	public static void main(String[] args) throws IOException {
+		new client(HOST, port).run();
+		new client(HOST, port).run();
+		new client(HOST, port).run();
+		new client(HOST, port).run();
+		new client(HOST, port).run();
 	}	
 }	
