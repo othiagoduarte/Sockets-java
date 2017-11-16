@@ -1,4 +1,4 @@
-package com.othiagoduarte.teste;
+package com.othiagoduarte.sockets;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -14,7 +14,6 @@ public class CustomerProcesses implements Runnable {
 	   }
 	 
 	   public void run() {
-	     // quando chegar uma msg, distribui pra todos
 	     Scanner s = new Scanner(this.cliente);
 	     while (s.hasNextLine()) {
 	       servidor.broadcast(s.nextLine());

@@ -1,4 +1,4 @@
-package com.othiagoduarte.teste;
+package com.othiagoduarte.sockets;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -10,17 +10,17 @@ public class client {
 
 
 	private String host;
-	private int porta;
+	private int port;
 
-	public client(String host, int porta) {
+	public client(String host, int port) {
 		this.host = host;
-		this.porta = porta;
+		this.port = port;
 	}
 
 	public void run() throws UnknownHostException, IOException {
 		
-		Socket clientSocket = new Socket(this.host, this.porta);
-		System.out.println("Client connection on server!");
+		Socket clientSocket = new Socket(this.host, this.port);
+		System.out.println("Client connection on server! in port " + this.port);
 
 		Receiver receiverRunable = new Receiver(clientSocket.getInputStream());
 		new Thread(receiverRunable).start();

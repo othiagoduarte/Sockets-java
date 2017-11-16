@@ -1,4 +1,4 @@
-package com.othiagoduarte.teste;
+package com.othiagoduarte.sockets;
 
 import java.io.InputStream;
 import java.util.Scanner;
