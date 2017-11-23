@@ -1,8 +1,11 @@
 package com.othiagoduarte.sockets;
 
-import java.io.IOException;
+import com.othiagoduarte.windows.JPanelExemplo;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 public class Main {
 	private static String HOST = "127.0.0.1";
@@ -10,15 +13,17 @@ public class Main {
 	
 
 	public static void main(String[] args) throws IOException {
-		Boolean sair = true;
-		while(sair) {
-			String portString = "";
-			portString = JOptionPane.showInputDialog(null, "Digite uma porta");
-			sair = portString.equalsIgnoreCase("Sair");
-			port = Integer.valueOf(portString);
-			System.out.println("PORT" +  port);
-			new Server(port).run();
-			new client(HOST, port).run();			
-		}
-	}	
-}	
+		String portString = "";
+		portString = JOptionPane.showInputDialog(null, "Digite uma porta");
+		port = Integer.valueOf(portString);
+		System.out.println("HOST " + HOST + " - PORT " +  port);
+		new Thread(new Server(port)).start();
+		new Thread(new Client(HOST, port, instancePane())).start();
+		new Thread(new Client(HOST, port, instancePane())).start();
+		new Thread(new Client(HOST, port, instancePane())).start();
+	}
+
+	public static JPanelExemplo instancePane(){
+		return  new JPanelExemplo();
+	}
+}

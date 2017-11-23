@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class Server {
+public class Server implements Runnable {
 	private static Integer PORT = 12345;
 	private int port;
 	private ArrayList<PrintStream> clientPrintStream;
@@ -25,21 +25,26 @@ public class Server {
 		new Server(PORT).run();
 	}
 	
-	public void run() throws IOException {
-		server = new ServerSocket(this.port);
-		System.out.println("Server open in port "+ this.port);
+	public void run(){
+		try {
+			server = new ServerSocket(this.port);
+			System.out.println("Server open in port "+ this.port);
 
-		while (true) {
-			Socket clientSocket = server.accept();
-			System.out.println("New connection" + clientSocket.getInetAddress().getHostAddress());
-			PrintStream printStream = new PrintStream(clientSocket.getOutputStream());
-			
-			this.clientPrintStream.add(printStream);
-			this.clientJOptionPane.add(new JOptionPane());;
+			while (true) {
+				Socket clientSocket = server.accept();
+				System.out.println("New connection" + clientSocket.getInetAddress().getHostAddress());
+				PrintStream printStream = new PrintStream(clientSocket.getOutputStream());
+				
+				this.clientPrintStream.add(printStream);
+				this.clientJOptionPane.add(new JOptionPane());;
 
-			CustomerProcesses customerProcessesRunnable = new CustomerProcesses(clientSocket.getInputStream(), this);
-			new Thread(customerProcessesRunnable).start();
+				CustomerProcesses customerProcessesRunnable = new CustomerProcesses(clientSocket.getInputStream(), this);
+				new Thread(customerProcessesRunnable).start();
+			}			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+
 	}
 
 	public void broadcast(String msg) {
